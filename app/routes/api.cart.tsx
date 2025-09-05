@@ -44,6 +44,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     
     const { lines, deliveryMethod, pickupLocationId } = body;
 
+    if (!admin) {
+      return json({ error: "Authentication failed" }, { status: 401 });
+    }
+    
     const storefrontAccessToken = await getStorefrontAccessToken(admin);
     
     const cartCreateMutation = `

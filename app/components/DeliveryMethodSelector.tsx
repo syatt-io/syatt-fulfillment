@@ -31,10 +31,13 @@ export function DeliveryMethodSelector({
   const [deliveryMethod, setDeliveryMethod] = useState("shipping");
   const [selectedLocation, setSelectedLocation] = useState("");
 
-  const locationOptions = locations.map(location => ({
-    label: `${location.name} - ${location.address}`,
-    value: location.id,
-  }));
+  const locationOptions = [
+    { label: "Choose a store", value: "" },
+    ...locations.map(location => ({
+      label: `${location.name} - ${location.address}`,
+      value: location.id,
+    }))
+  ];
 
   const handleCreateCart = () => {
     onCreateCart(
