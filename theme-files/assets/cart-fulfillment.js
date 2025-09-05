@@ -186,21 +186,39 @@ class CartFulfillment {
       // Call your app's public cart creation API
       const shop = window.Shopify?.shop || window.location.hostname;
       
-      // Try to get the app URL dynamically from the page
+      // Get the app URL from the config endpoint
       let appUrl = null;
       
-      // Look for script tags that might contain app references
-      const scriptTags = document.querySelectorAll('script[src*="trycloudflare.com"], script[src*="shopify-app"]');
-      if (scriptTags.length > 0) {
-        const srcUrl = scriptTags[0].src;
-        const urlMatch = srcUrl.match(/(https:\/\/[^\/]+)/);
-        if (urlMatch) appUrl = urlMatch[1];
-      }
-      
-      // Fallback: try common app URL patterns or use a configured value
-      if (!appUrl) {
-        // You can set this as a global variable in your theme
-        appUrl = window.SHOPIFY_APP_URL || 'https://syatt-fulfillment-d4pju.ondigitalocean.app';
+      // Try to get from global variable first (for performance)
+      if (window.SHOPIFY_APP_URL) {
+        appUrl = window.SHOPIFY_APP_URL;
+      } else {
+        // Fetch from config endpoint and cache it
+        try {
+          // Try to determine base URL dynamically
+          let baseUrl = 'https://syatt-fulfillment-d4pju.ondigitalocean.app'; // fallback
+          
+          // Look for script tags that might contain app references
+          const scriptTags = document.querySelectorAll('script[src*="shopify-app"], script[src*="syatt-fulfillment"]');
+          if (scriptTags.length > 0) {
+            const srcUrl = scriptTags[0].src;
+            const urlMatch = srcUrl.match(/(https:\/\/[^\/]+)/);
+            if (urlMatch) baseUrl = urlMatch[1];
+          }
+          
+          const configResponse = await fetch(`${baseUrl}/api/config`);
+          if (configResponse.ok) {
+            const config = await configResponse.json();
+            appUrl = config.appUrl;
+            // Cache for future use
+            window.SHOPIFY_APP_URL = appUrl;
+          } else {
+            appUrl = baseUrl; // fallback to base URL
+          }
+        } catch (error) {
+          console.warn('Could not fetch app config, using fallback URL:', error);
+          appUrl = 'https://syatt-fulfillment-d4pju.ondigitalocean.app';
+        }
       }
       
       console.log('Using app URL:', appUrl);
