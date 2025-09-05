@@ -2,7 +2,7 @@
 
 client_id = "55290874f109ed9ab3ff3bd31f978681"
 name = "syatt-fulfillment"
-application_url = "https://forces-eating-oakland-salon.trycloudflare.com"
+application_url = "https://syatt-fulfillment-d4pju.ondigitalocean.app"
 embedded = true
 handle = "syatt-fulfillment"
 
@@ -18,7 +18,7 @@ api_version = "2025-07"
 scopes = "write_products,read_orders,read_shipping,write_shipping,write_delivery_customizations"
 
 [auth]
-redirect_urls = ["https://forces-eating-oakland-salon.trycloudflare.com/auth/callback", "https://forces-eating-oakland-salon.trycloudflare.com/auth/shopify/callback", "https://forces-eating-oakland-salon.trycloudflare.com/api/auth/callback"]
+redirect_urls = ["https://syatt-fulfillment-d4pju.ondigitalocean.app/auth/callback", "https://syatt-fulfillment-d4pju.ondigitalocean.app/auth/shopify/callback", "https://syatt-fulfillment-d4pju.ondigitalocean.app/api/auth/callback"]
 
 [pos]
 embedded = false

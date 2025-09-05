@@ -16,10 +16,10 @@ query CartDeliveryOptionsTransformRunInput {
         }
       }
     }
-    fulfillmentTypeAttribute: attribute(key: "fulfillment_type") {
+    fulfillmentTypeAttribute: attribute(key: "fulfillmentType") {
       value
     }
-    pickupLocationIdAttribute: attribute(key: "pickup_location_id") {
+    pickupLocationIdAttribute: attribute(key: "pickupLocationId") {
       value
     }
   }
