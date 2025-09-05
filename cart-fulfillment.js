@@ -186,40 +186,12 @@ class CartFulfillment {
       // Call your app's public cart creation API
       const shop = window.Shopify?.shop || window.location.hostname;
       
-      // Get the app URL from the config endpoint
-      let appUrl = null;
+      // Get the app URL - FORCE production URL for now to fix caching issue
+      let appUrl = 'https://syatt-fulfillment-d4pju.ondigitalocean.app';
       
-      // Try to get from global variable first (for performance)
-      if (window.SHOPIFY_APP_URL) {
-        appUrl = window.SHOPIFY_APP_URL;
-      } else {
-        // Fetch from config endpoint and cache it
-        try {
-          // Try to determine base URL dynamically
-          let baseUrl = 'https://syatt-fulfillment-d4pju.ondigitalocean.app'; // fallback
-          
-          // Look for script tags that might contain app references
-          const scriptTags = document.querySelectorAll('script[src*="shopify-app"], script[src*="syatt-fulfillment"]');
-          if (scriptTags.length > 0) {
-            const srcUrl = scriptTags[0].src;
-            const urlMatch = srcUrl.match(/(https:\/\/[^\/]+)/);
-            if (urlMatch) baseUrl = urlMatch[1];
-          }
-          
-          const configResponse = await fetch(`${baseUrl}/api/config`);
-          if (configResponse.ok) {
-            const config = await configResponse.json();
-            appUrl = config.appUrl;
-            // Cache for future use
-            window.SHOPIFY_APP_URL = appUrl;
-          } else {
-            appUrl = baseUrl; // fallback to base URL
-          }
-        } catch (error) {
-          console.warn('Could not fetch app config, using fallback URL:', error);
-          appUrl = 'https://syatt-fulfillment-d4pju.ondigitalocean.app';
-        }
-      }
+      console.log('🔍 DEBUGGING: Forced app URL to:', appUrl);
+      console.log('🔍 DEBUGGING: window.SHOPIFY_APP_URL:', window.SHOPIFY_APP_URL);
+      console.log('🔍 DEBUGGING: Script timestamp:', new Date().toISOString());
       
       console.log('Using app URL:', appUrl);
       const response = await fetch(`${appUrl}/api/public/cart`, {
