@@ -35,7 +35,6 @@ export function cartDeliveryOptionsTransformRun(input) {
   console.error('🔍 Cart analysis:');
   console.error('  fulfillmentType:', fulfillmentType);
   console.error('  pickupLocationId:', pickupLocationId);
-  console.error('  deliveryGroupsCount:', cart.deliveryGroups?.length || 0);
 
   // If no fulfillment type is specified, don't modify anything
   if (!fulfillmentType) {
@@ -89,22 +88,16 @@ export function cartDeliveryOptionsTransformRun(input) {
           }
         });
 
-        console.error('🚫 Hiding delivery option:');
-        console.error('  handle:', optionHandle);
-        console.error('  title:', deliveryOption.title);
-        console.error('  reason: User selected', fulfillmentType, ', hiding', isPickupOption ? 'pickup' : 'shipping', 'option');
+        console.error('🚫 Hiding delivery option');
       } else {
-        console.error('✅ Keeping delivery option:');
-        console.error('  handle:', optionHandle);
-        console.error('  title:', deliveryOption.title);
-        console.error('  reason: User selected', fulfillmentType, ', showing', isPickupOption ? 'pickup' : 'shipping', 'option');
+        console.error('✅ Keeping delivery option');
       }
     });
   });
 
   // If we made any changes, return them
   if (operations.length > 0) {
-    console.error(`🎯 DELIVERY CUSTOMIZATION: Applied ${operations.length} operations`);
+    console.error('🎯 DELIVERY CUSTOMIZATION: Applied operations');
     return { operations };
   }
 
