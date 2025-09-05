@@ -2,7 +2,7 @@
 
 client_id = "55290874f109ed9ab3ff3bd31f978681"
 name = "syatt-fulfillment"
-application_url = "https://out-prime-cos-asylum.trycloudflare.com"
+application_url = "https://promoting-benefits-ion-tf.trycloudflare.com"
 embedded = true
 handle = "syatt-fulfillment"
 
@@ -18,7 +18,7 @@ api_version = "2025-07"
 scopes = "write_products,read_orders,read_shipping,write_shipping,write_delivery_customizations,read_locations"
 
 [auth]
-redirect_urls = ["https://out-prime-cos-asylum.trycloudflare.com/auth/callback", "https://out-prime-cos-asylum.trycloudflare.com/auth/shopify/callback", "https://out-prime-cos-asylum.trycloudflare.com/api/auth/callback"]
+redirect_urls = ["https://promoting-benefits-ion-tf.trycloudflare.com/auth/callback", "https://promoting-benefits-ion-tf.trycloudflare.com/auth/shopify/callback", "https://promoting-benefits-ion-tf.trycloudflare.com/api/auth/callback"]
 
 [pos]
 embedded = false
