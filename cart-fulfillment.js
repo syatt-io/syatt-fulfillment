@@ -186,10 +186,10 @@ class CartFulfillment {
       // Call your app's public cart creation API
       const shop = window.Shopify?.shop || window.location.hostname;
       
-      // Get the app URL - FORCE production URL for now to fix caching issue
-      let appUrl = 'https://syatt-fulfillment-d4pju.ondigitalocean.app';
+      // Get the app URL from global variable set by Liquid template
+      let appUrl = window.SHOPIFY_APP_URL || 'https://syatt-fulfillment-d4pju.ondigitalocean.app';
       
-      console.log('🔍 DEBUGGING: Forced app URL to:', appUrl);
+      console.log('🔍 DEBUGGING: Using app URL:', appUrl);
       console.log('🔍 DEBUGGING: window.SHOPIFY_APP_URL:', window.SHOPIFY_APP_URL);
       console.log('🔍 DEBUGGING: Script timestamp:', new Date().toISOString());
       
