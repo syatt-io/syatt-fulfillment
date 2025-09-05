@@ -58,7 +58,9 @@ export function cartDeliveryOptionsTransformRun(input) {
         optionTitle.includes('pickup') ||
         optionTitle.includes('pick up') ||
         optionTitle.includes('store') ||
-        optionCode.includes('pickup')
+        optionTitle.includes('local delivery') ||
+        optionCode.includes('pickup') ||
+        optionCode.includes('local delivery')
       );
 
       const isShippingOption = (
