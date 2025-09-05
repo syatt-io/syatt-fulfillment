@@ -84,7 +84,7 @@ export function cartDeliveryOptionsTransformRun(input) {
 
       if (shouldHide) {
         operations.push({
-          hide: {
+          deliveryOptionHide: {
             deliveryOptionHandle: optionHandle
           }
         });
