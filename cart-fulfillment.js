@@ -200,7 +200,7 @@ class CartFulfillment {
       // Fallback: try common app URL patterns or use a configured value
       if (!appUrl) {
         // You can set this as a global variable in your theme
-        appUrl = window.SHOPIFY_APP_URL || 'https://reporter-synthetic-significant-revision.trycloudflare.com';
+        appUrl = window.SHOPIFY_APP_URL || 'https://syatt-fulfillment-d4pju.ondigitalocean.app';
       }
       
       console.log('Using app URL:', appUrl);
