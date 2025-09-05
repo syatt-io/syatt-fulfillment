@@ -1,0 +1,24 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "55290874f109ed9ab3ff3bd31f978681"
+name = "syatt-fulfillment"
+application_url = "https://syatt-fulfillment.herokuapp.com"
+embedded = true
+handle = "syatt-fulfillment"
+
+[build]
+include_config_on_deploy = true
+automatically_update_urls_on_dev = true
+
+[webhooks]
+api_version = "2025-07"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products,read_orders,read_shipping,write_shipping,write_delivery_customizations"
+
+[auth]
+redirect_urls = ["https://syatt-fulfillment.herokuapp.com/auth/callback", "https://syatt-fulfillment.herokuapp.com/auth/shopify/callback", "https://syatt-fulfillment.herokuapp.com/api/auth/callback"]
+
+[pos]
+embedded = false

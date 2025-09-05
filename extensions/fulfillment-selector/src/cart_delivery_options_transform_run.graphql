@@ -1,0 +1,26 @@
+query CartDeliveryOptionsTransformRunInput {
+  deliveryCustomization {
+    metafield(namespace: "$app:fulfillment-selector", key: "function-configuration") {
+      jsonValue
+    }
+  }
+  cart {
+    deliveryGroups {
+      deliveryOptions {
+        code
+        title
+        description
+        handle
+        cost {
+          amount
+        }
+      }
+    }
+    fulfillmentTypeAttribute: attribute(key: "fulfillment_type") {
+      value
+    }
+    pickupLocationIdAttribute: attribute(key: "pickup_location_id") {
+      value
+    }
+  }
+}

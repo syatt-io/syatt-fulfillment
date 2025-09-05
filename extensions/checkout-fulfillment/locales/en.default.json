@@ -1,0 +1,6 @@
+{
+  "preselection_banner_delivery": "✓ Delivery selected from your cart",
+  "preselection_banner_pickup": "✓ Store pickup selected from your cart",
+  "change_selection_button": "Change selection",
+  "auto_selection_error": "Unable to apply your cart selection. Please choose a shipping option."
+}

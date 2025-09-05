@@ -1,0 +1,13 @@
+[[extensions]]
+type = "ui_extension"
+name = "checkout-fulfillment"
+handle = "checkout-fulfillment"
+description = "Displays pre-selected fulfillment options from cart attributes in checkout"
+api_version = "2024-10"
+
+[extensions.capabilities]
+api_access = true
+
+[[extensions.targeting]]
+target = "purchase.checkout.contact.render-after"
+module = "./src/index.jsx"
