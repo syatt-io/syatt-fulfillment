@@ -77,10 +77,7 @@ export function DeliveryMethodSelector({
         {isPickupSelected && (
           <Select
             label="Select pickup location"
-            options={[
-              { label: "Choose a store", value: "" },
-              ...locationOptions
-            ]}
+            options={locationOptions}
             value={selectedLocation}
             onChange={setSelectedLocation}
             placeholder="Choose a store location"
