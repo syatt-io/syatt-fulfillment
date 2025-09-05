@@ -66,11 +66,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     const locationsData = await locationsResponse.json();
     const productsData = await productsResponse.json();
     
-    const locations = locationsData.data?.locations?.edges.map((edge: any) => ({
-      id: edge.node.id,
-      name: edge.node.name,
-      address: edge.node.address?.formatted || "Address not available"
-    })) || [];
+    const locations = locationsData.data?.locations?.edges
+      .map((edge: any) => ({
+        id: edge.node.id,
+        name: edge.node.name,
+        address: edge.node.address?.formatted || "Address not available"
+      }))
+      .filter((location: any) => location.id && location.name) // Filter out invalid locations
+      || [];
+    
 
     const sampleVariant = productsData.data?.products?.edges?.[0]?.node?.variants?.edges?.[0]?.node;
 

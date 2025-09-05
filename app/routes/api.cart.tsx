@@ -122,11 +122,15 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 async function getStorefrontAccessToken(admin: any) {
   const storefrontAccessTokenQuery = `
     query {
-      storefrontAccessTokens(first: 1) {
-        edges {
-          node {
-            accessToken
-            title
+      app {
+        installation {
+          accessTokens(first: 1) {
+            edges {
+              node {
+                accessToken
+                scopes
+              }
+            }
           }
         }
       }
@@ -136,7 +140,7 @@ async function getStorefrontAccessToken(admin: any) {
   const response = await admin.graphql(storefrontAccessTokenQuery);
   const data = await response.json();
   
-  const tokens = data.data?.storefrontAccessTokens?.edges;
+  const tokens = data.data?.app?.installation?.accessTokens?.edges;
   
   if (!tokens || tokens.length === 0) {
     throw new Error("No storefront access token found. Please create one in your Shopify admin.");

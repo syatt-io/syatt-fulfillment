@@ -31,13 +31,23 @@ export function DeliveryMethodSelector({
   const [deliveryMethod, setDeliveryMethod] = useState("shipping");
   const [selectedLocation, setSelectedLocation] = useState("");
 
+  // Create location options with guaranteed unique values
+  const validLocations = locations.filter(location => location.id && location.name);
+  const uniqueLocationIds = new Set();
   const locationOptions = [
-    { label: "Choose a store", value: "" },
-    ...locations.map(location => ({
-      label: `${location.name} - ${location.address}`,
-      value: location.id,
-    }))
+    { label: "Choose a store", value: "" }
   ];
+  
+  validLocations.forEach((location, index) => {
+    if (!uniqueLocationIds.has(location.id)) {
+      uniqueLocationIds.add(location.id);
+      locationOptions.push({
+        label: `${location.name} - ${location.address}`,
+        value: location.id
+      });
+    }
+  });
+
 
   const handleCreateCart = () => {
     onCreateCart(
