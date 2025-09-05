@@ -48,28 +48,61 @@ export function cartDeliveryOptionsTransformRun(input) {
   // Process each delivery group
   cart.deliveryGroups?.forEach((deliveryGroup, groupIndex) => {
     deliveryGroup.deliveryOptions?.forEach((deliveryOption, optionIndex) => {
-      const optionHandle = deliveryOption.handle;
-      const optionTitle = deliveryOption.title?.toLowerCase() || '';
-      const optionCode = deliveryOption.code?.toLowerCase() || '';
+      const optionHandle = deliveryOption.handle || '';
+      const optionTitle = deliveryOption.title || '';
+      const optionCode = deliveryOption.code || '';
+      const optionDescription = deliveryOption.description || '';
+      
+      // Convert to lowercase for comparison
+      const handleLower = optionHandle.toLowerCase();
+      const titleLower = optionTitle.toLowerCase();
+      const codeLower = optionCode.toLowerCase();
+      const descLower = optionDescription.toLowerCase();
+
+      // Enhanced logging for debugging
+      console.error('📦 Analyzing delivery option:');
+      console.error('  handle:', optionHandle);
+      console.error('  title:', optionTitle);
+      console.error('  code:', optionCode);
+      console.error('  description:', optionDescription);
 
       // Determine if this is a pickup or shipping option based on common indicators
       const isPickupOption = (
-        optionHandle?.includes('pickup') ||
-        optionTitle.includes('pickup') ||
-        optionTitle.includes('pick up') ||
-        optionTitle.includes('store') ||
-        optionCode.includes('pickup')
+        handleLower.includes('pickup') ||
+        handleLower.includes('pick-up') ||
+        handleLower.includes('pick_up') ||
+        titleLower.includes('pickup') ||
+        titleLower.includes('pick up') ||
+        titleLower.includes('pick-up') ||
+        titleLower.includes('store') ||
+        titleLower.includes('local') ||
+        codeLower.includes('pickup') ||
+        codeLower.includes('pick') ||
+        descLower.includes('pickup') ||
+        descLower.includes('pick up')
       );
 
       const isShippingOption = (
-        optionHandle?.includes('ship') ||
-        optionTitle.includes('ship') ||
-        optionTitle.includes('deliver') ||
-        optionTitle.includes('standard') ||
-        optionTitle.includes('express') ||
-        optionCode.includes('ship') ||
+        handleLower.includes('ship') ||
+        handleLower.includes('shipping') ||
+        titleLower.includes('ship') ||
+        titleLower.includes('deliver') ||
+        titleLower.includes('standard') ||
+        titleLower.includes('express') ||
+        titleLower.includes('economy') ||
+        titleLower.includes('priority') ||
+        codeLower.includes('ship') ||
+        codeLower.includes('shipping') ||
+        descLower.includes('ship') ||
+        descLower.includes('deliver') ||
+        // Also check for specific IDs
+        optionHandle === 'SHIPPING' ||
+        optionCode === 'SHIPPING' ||
         !isPickupOption // Default to shipping if not explicitly pickup
       );
+      
+      console.error('  isPickupOption:', isPickupOption);
+      console.error('  isShippingOption:', isShippingOption);
 
       // Hide/show options based on fulfillment type selection
       let shouldHide = false;
@@ -89,15 +122,17 @@ export function cartDeliveryOptionsTransformRun(input) {
           }
         });
 
-        console.error('🚫 Hiding delivery option');
-        console.error('  handle:', optionHandle || 'unknown');
-        console.error('  title:', optionTitle || 'unknown');
-        console.error('  reason: User selected ' + fulfillmentType + ', hiding ' + (isShippingOption ? 'shipping' : 'pickup') + ' option');
+        console.error('🚫 HIDING delivery option:');
+        console.error('  handle:', optionHandle);
+        console.error('  title:', optionTitle);
+        console.error('  code:', optionCode);
+        console.error('  reason: User selected "' + fulfillmentType + '", this is a ' + (isShippingOption ? 'SHIPPING' : 'PICKUP') + ' option');
       } else {
-        console.error('✅ Keeping delivery option');
-        console.error('  handle:', optionHandle || 'unknown');
-        console.error('  title:', optionTitle || 'unknown');  
-        console.error('  reason: User selected ' + fulfillmentType + ', showing ' + (isShippingOption ? 'shipping' : 'pickup') + ' option');
+        console.error('✅ KEEPING delivery option:');
+        console.error('  handle:', optionHandle);
+        console.error('  title:', optionTitle);  
+        console.error('  code:', optionCode);
+        console.error('  reason: User selected "' + fulfillmentType + '", this is a ' + (isShippingOption ? 'SHIPPING' : 'PICKUP') + ' option');
       }
     });
   });
